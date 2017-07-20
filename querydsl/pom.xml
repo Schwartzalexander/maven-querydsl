@@ -83,12 +83,28 @@
 							<goal>process</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>target/generated-sources/java</outputDirectory>
+							<outputDirectory>${project.build.directory}/generated-sources/java/querydsl</outputDirectory>
 							<processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
 						</configuration>
+
 					</execution>
 				</executions>
 			</plugin>
+			
+			<!--Move Querydsl Q-Classes to src folder 
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						  <phase>compile</phase>
+						<configuration>
+							<tasks>
+								<move file="${project.build.directory}/generated-sources/java/querydsl" tofile="src/main/java"/>
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>-->
 		</plugins>
 	</build>
 </project>
