@@ -26,8 +26,7 @@ public class App {
 
 		String host = "82.211.60.193";
 		long port = 27017;
-		String dbName = "test";
-
+		String dbName = "admin";
 		MongoClient mongoClient = new MongoClient(new MongoClientURI(host != null ? "mongodb://" + host + ':' + port : "mongodb://localhost:27017"));
 		DB db = mongoClient.getDB(dbName);
 		
