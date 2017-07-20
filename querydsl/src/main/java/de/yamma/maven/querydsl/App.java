@@ -1,9 +1,11 @@
 package de.yamma.maven.querydsl;
 
 import java.net.UnknownHostException;
+import java.util.List;
 
-import com.google.code.morphia.Datastore;
-import com.google.code.morphia.Morphia;
+import org.mongodb.morphia.Datastore;
+import org.mongodb.morphia.Morphia;
+
 import com.mongodb.DB;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
@@ -22,7 +24,7 @@ public class App {
 
 		QSport sport = QSport.sport;
 
-		String host = "yammaApps.de";
+		String host = "82.211.60.193";
 		long port = 27017;
 		String dbName = "test";
 
@@ -31,6 +33,9 @@ public class App {
 		
 		Morphia morphia = new Morphia();
 		Datastore datastore = morphia.createDatastore(mongoClient, db.getName());
-		MorphiaQuery<Sport> query = new MorphiaQuery<Sport>(morphia, datastore, sport);
+		MorphiaQuery<Sport> query = new MorphiaQuery<>(morphia, datastore, sport);
+		List<Sport> list = query
+			    .where(sport.name.eq("Laufen"))
+			    .fetch();
 	}
 }
