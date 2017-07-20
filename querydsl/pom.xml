@@ -51,7 +51,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.querydsl</groupId>
-			<artifactId>querydsl-jpa</artifactId>
+			<artifactId>querydsl-mongodb</artifactId>
 			<version>${querydsl.version}</version>
 		</dependency>
 
@@ -60,7 +60,6 @@
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.6.1</version>
 		</dependency>
-
 
 		<dependency>
 			<groupId>com.google.code.morphia</groupId>
@@ -90,21 +89,11 @@
 					</execution>
 				</executions>
 			</plugin>
-			
-			<!--Move Querydsl Q-Classes to src folder 
-			<plugin>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<executions>
-					<execution>
-						  <phase>compile</phase>
-						<configuration>
-							<tasks>
-								<move file="${project.build.directory}/generated-sources/java/querydsl" tofile="src/main/java"/>
-							</tasks>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>-->
+
+			<!--Move Querydsl Q-Classes to src folder <plugin> <artifactId>maven-antrun-plugin</artifactId> 
+				<executions> <execution> <phase>compile</phase> <configuration> <tasks> <move 
+				file="${project.build.directory}/generated-sources/java/querydsl" tofile="src/main/java"/> 
+				</tasks> </configuration> </execution> </executions> </plugin> -->
 		</plugins>
 	</build>
 </project>
