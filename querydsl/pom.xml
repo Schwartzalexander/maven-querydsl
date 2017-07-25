@@ -47,14 +47,35 @@
 		<!--Querydsl -->
 		<dependency>
 			<groupId>com.querydsl</groupId>
-			<artifactId>querydsl-apt</artifactId>
+			<artifactId>querydsl-core</artifactId>
 			<version>${querydsl.version}</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.querydsl</groupId>
-			<artifactId>querydsl-mongodb</artifactId>
+			<artifactId>querydsl-apt</artifactId>
 			<version>${querydsl.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.querydsl</groupId>
+			<artifactId>querydsl-sql</artifactId>
+			<version>${querydsl.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.querydsl</groupId>
+			<artifactId>querydsl-sql-codegen</artifactId>
+			<version>${querydsl.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.43</version>
+		</dependency>
+		<dependency>
+			<groupId>com.mchange</groupId>
+			<artifactId>c3p0</artifactId>
+			<version>0.9.5.2</version>
 		</dependency>
 
 		<dependency>
@@ -63,51 +84,39 @@
 			<version>1.6.1</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.mongodb.morphia</groupId>
-			<artifactId>morphia</artifactId>
-			<version>1.3.2</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.mongodb</groupId>
-			<artifactId>bson</artifactId>
-			<version>3.4.2</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.mongodb</groupId>
-			<artifactId>mongo-java-driver</artifactId>
-			<version>3.4.2</version>
-		</dependency>
-
 	</dependencies>
 
 	<build>
 		<plugins>
 			<!--Querydsl -->
 			<plugin>
-				<groupId>com.mysema.maven</groupId>
-				<artifactId>apt-maven-plugin</artifactId>
-				<version>1.1.3</version>
+				<groupId>com.querydsl</groupId>
+				<artifactId>querydsl-maven-plugin</artifactId>
+				<version>${querydsl.version}</version>
 				<executions>
 					<execution>
 						<goals>
-							<goal>process</goal>
+							<goal>export</goal>
 						</goals>
-						<configuration>
-							<outputDirectory>${project.build.directory}/generated-sources/java/querydsl</outputDirectory>
-							<processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
-						</configuration>
-
 					</execution>
 				</executions>
+				<configuration>
+					<jdbcDriver>com.mysql.jdbc.Driver</jdbcDriver>
+					<jdbcUrl>jdbc:mysql://localhost/test</jdbcUrl>
+					<jdbcUser>root</jdbcUser>
+					<jdbcPassword></jdbcPassword>
+					<packageName>de.yamma.maven.querydsl.entities</packageName>
+					<targetFolder>src\main\java</targetFolder>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>mysql</groupId>
+						<artifactId>mysql-connector-java</artifactId>
+						<version>5.1.43</version>
+					</dependency>
+				</dependencies>
 			</plugin>
 
-			<!--Move Querydsl Q-Classes to src folder <plugin> <artifactId>maven-antrun-plugin</artifactId> 
-				<executions> <execution> <phase>compile</phase> <configuration> <tasks> <move 
-				file="${project.build.directory}/generated-sources/java/querydsl" tofile="src/main/java"/> 
-				</tasks> </configuration> </execution> </executions> </plugin> -->
 		</plugins>
 	</build>
 </project>
